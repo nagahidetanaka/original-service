@@ -32,6 +32,7 @@ gem 'faker'
 gem 'kaminari'
 gem 'carrierwave'
 gem 'rmagick'
+gem 'cloudinary'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
