@@ -9,6 +9,13 @@
       <ol class="microposts">
         <%= render @microposts %>
       </ol>
+      <%= paginate @microposts %>
     <% end %>
+    
+    <% if @user.image? %>
+　　  <%= image_tag @user.image.thumb.url %>
+　  <% else %>
+　　  <%= image_tag 'noimage.gif' %>
+　  <% end %>
   </div>
 </div>
