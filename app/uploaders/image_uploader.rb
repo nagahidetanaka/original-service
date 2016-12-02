@@ -1,16 +1,16 @@
 # encoding: utf-8
 
 class ImageUploader < CarrierWave::Uploader::Base
-  
- # リサイズしたり画像形式を変更するのに必要
-  include CarrierWave::RMagick
-
   # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
+  include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  if Rails.env.production?
+    include Cloudinary::CarrierWave
+  else
+    storage :file
+  end
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
@@ -59,6 +59,11 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # 保存形式をJPGにする
   process :convert => 'jpg'
+  
+  # サムネイルを生成する設定
+  version :thumb do
+    process :resize_to_limit => [300, 300]
+  end
 
 
   # jpg,jpeg,gif,pngしか受け付けない
